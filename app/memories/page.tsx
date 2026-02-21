@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import Navigation from "../components/Navigation";
 
 export default function MemoriesPage() {
   const [memories, setMemories] = useState([
@@ -55,6 +55,8 @@ export default function MemoriesPage() {
 
   return (
     <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
+      <Navigation />
+
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '80px 20px 60px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>

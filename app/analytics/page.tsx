@@ -1,3 +1,4 @@
+import Navigation from "../components/Navigation";
 "use client";
 
 export default function AnalyticsPage() {
@@ -21,7 +22,11 @@ export default function AnalyticsPage() {
   const maxValue = Math.max(...chartData.map(d => d.value));
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
+    <>
+    <Navigation />
+
+
+<div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '80px 20px 60px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -164,6 +169,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
