@@ -17,4 +17,18 @@ export default defineSchema({
     .index("by_scheduledTime", ["scheduledTime"])
     .index("by_status", ["status"])
     .index("by_assignedTo", ["assignedTo"]),
+
+  memories: defineTable({
+    title: v.string(),
+    content: v.string(),
+    category: v.optional(v.string()),
+    tags: v.optional(v.array(v.string())),
+    source: v.optional(v.string()), // 来源文件或对话
+    importance: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_category", ["category"])
+    .index("by_importance", ["importance"])
+    .index("by_createdAt", ["createdAt"]),
 });

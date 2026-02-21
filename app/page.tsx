@@ -201,16 +201,28 @@ export default function Home() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            🎯 任务控制中心
-          </h1>
-          <p className="text-gray-600 mb-4">跟踪所有计划任务和 cron 作业</p>
-          <button
-            onClick={() => setShowForm(true)}
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
-          >
-            ➕ 计划新任务
-          </button>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                🎯 任务控制中心
+              </h1>
+              <p className="text-gray-600">跟踪所有计划任务和 cron 作业</p>
+            </div>
+            <div className="flex space-x-3">
+              <a
+                href="/memories"
+                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
+              >
+                🧠 记忆库
+              </a>
+              <button
+                onClick={() => setShowForm(true)}
+                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
+              >
+                ➕ 计划新任务
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Stats */}
