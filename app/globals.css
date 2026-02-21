@@ -16,6 +16,20 @@
   --shadow-hover: 0 20px 40px rgba(0,0,0,0.1);
 }
 
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+  --card-bg: #1a1a1a;
+  --card-border: rgba(255,255,255,0.1);
+  --nav-bg: #1a1a1a;
+  --nav-border: rgba(255,255,255,0.1);
+  --text-primary: #e5e5e5;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #737373;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-hover: 0 20px 40px rgba(0,0,0,0.5);
+}
+
 body {
   margin: 0;
   padding: 0;

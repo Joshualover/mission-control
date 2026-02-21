@@ -9,7 +9,7 @@ export default function OfficePage() {
   ];
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: 'var(--background)', minHeight: '100vh' }}>
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
       <Navigation />
 
       {/* Header */}
@@ -35,7 +35,7 @@ export default function OfficePage() {
             <div
               key={item.id}
               style={{
-                backgroundColor: 'var(--card-bg)',
+                backgroundColor: 'white',
                 padding: '36px',
                 borderRadius: '20px',
                 border: '1px solid rgba(0,0,0,0.06)',
@@ -59,8 +59,8 @@ export default function OfficePage() {
                     {item.member.charAt(0)}
                   </div>
                   <div>
-                    <div style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-primary)' }}>{item.member}</div>
-                    <div style={{ fontSize: '14px', color: 'var(--text-tertiary)', marginTop: '2px' }}>正在工作</div>
+                    <div style={{ fontSize: '18px', fontWeight: '700', color: '#1a1a1a' }}>{item.member}</div>
+                    <div style={{ fontSize: '14px', color: '#9ca3af', marginTop: '2px' }}>正在工作</div>
                   </div>
                 </div>
                 <div style={{
@@ -82,7 +82,7 @@ export default function OfficePage() {
                 <div style={{ width: '100%', height: '8px', backgroundColor: '#f3f4f6', borderRadius: '10px', overflow: 'hidden' }}>
                   <div style={{ width: `${item.progress}%`, height: '100%', background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)', borderRadius: '10px', transition: 'width 0.5s ease' }}></div>
                 </div>
-                <div style={{ fontSize: '13px', color: 'var(--text-tertiary)', marginTop: '6px', fontWeight: '500' }}>
+                <div style={{ fontSize: '13px', color: '#9ca3af', marginTop: '6px', fontWeight: '500' }}>
                   进度: {item.progress}%
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function OfficePage() {
 
         {/* Empty State */}
         <div style={{
-          backgroundColor: 'var(--card-bg)',
+          backgroundColor: 'white',
           padding: '60px',
           borderRadius: '20px',
           border: '2px dashed rgba(102,126,234,0.2)',
@@ -109,8 +109,8 @@ export default function OfficePage() {
           marginTop: '32px'
         }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>📊</div>
-          <h3 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '8px' }}>实时数据</h3>
-          <p style={{ fontSize: '15px', color: 'var(--text-secondary)' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>实时数据</h3>
+          <p style={{ fontSize: '15px', color: '#666' }}>
             集成 Convex 后显示实时工作状态和统计数据
           </p>
         </div>

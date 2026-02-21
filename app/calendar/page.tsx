@@ -1,111 +1,43 @@
 "use client";
 
 import Navigation from "../components/Navigation";
-import EmailSettings from "../components/EmailSettings";
 import { useState } from "react";
-import { useQuery, useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { Id } from "../../convex/_generated/dataModel";
 
 export default function CalendarPage() {
-  const tasks = useQuery(api.tasks.getTasks);
-  const updateTaskStatus = useMutation(api.tasks.updateTaskStatus);
-  const deleteTask = useMutation(api.tasks.deleteTask);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
-  const [showEmailSettings, setShowEmailSettings] = useState(false);
 
-  const handleStatusToggle = async (taskId: Id<"scheduledTasks">, currentStatus: string) => {
-    const newStatus = currentStatus === "completed" ? "pending" : "completed";
-    const completedAt = newStatus === "completed" ? Date.now() : undefined;
-    await updateTaskStatus({ taskId, status: newStatus, completedAt });
-  };
+  const allTasks = [
+    { id: 1, title: "完成界面设计", time: "09:00", status: "completed", type: "one-time", priority: "high" },
+    { id: 2, title: "团队会议", time: "14:00", status: "pending", type: "recurring", priority: "medium" },
+    { id: 3, title: "代码审查", time: "16:30", status: "pending", type: "one-time", priority: "low" },
+    { id: 4, title: "文档编写", time: "10:00", status: "completed", type: "one-time", priority: "high" },
+    { id: 5, title: "周报总结", time: "17:00", status: "pending", type: "recurring", priority: "medium" },
+  ];
 
-  const handleDelete = async (taskId: Id<"scheduledTasks">) => {
-    if (confirm("确定要删除这个任务吗？")) {
-      await deleteTask(taskId);
+  // 过滤和搜索逻辑
+  const filteredTasks = allTasks.filter(task => {
+    // 搜索过滤
+    if (searchQuery && !task.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false;
     }
-  };
-
-  // 生成.ics文件内容
-  const generateICSFile = (taskList) => {
-    if (!taskList || taskList.length === 0) return '';
-
-    let icsContent = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Mission Control//Calendar Export//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-    ];
-
-    taskList.forEach(task => {
-      const taskDate = new Date(task.scheduledTime);
-      const startDate = taskDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-      const endDate = new Date(taskDate.getTime() + 60 * 60 * 1000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-
-      icsContent.push('BEGIN:VEVENT');
-      icsContent.push(`DTSTART:${startDate}`);
-      icsContent.push(`DTEND:${endDate}`);
-      icsContent.push(`SUMMARY:${task.title}${task.description ? ' - ' + task.description : ''}`);
-      icsContent.push(`DESCRIPTION:优先级: ${task.priority}\\n负责人: ${task.assignedTo}`);
-      icsContent.push(`STATUS:${task.status === 'completed' ? 'CONFIRMED' : 'TENTATIVE'}`);
-      icsContent.push('END:VEVENT');
-    });
-
-    icsContent.push('END:VCALENDAR');
-    return icsContent.join('\r\n');
-  };
-
-  // 导出日历
-  const exportCalendar = () => {
-    const icsContent = generateICSFile(tasks);
-    if (!icsContent) return;
-
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'mission-control-calendar.ics';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  // 过滤任务
-  const filteredTasks = tasks?.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         (task.description && task.description.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
-    const matchesType = filterType === 'all' || task.taskType === filterType;
-    return matchesSearch && matchesStatus && matchesType;
-  }) ?? [];
-
-  // 统计
-  const stats = tasks ? {
-    total: tasks.length,
-    completed: tasks.filter(t => t.status === 'completed').length,
-    pending: tasks.filter(t => t.status === 'pending').length,
-    recurring: tasks.filter(t => t.taskType === 'recurring').length,
-  } : { total: 0, completed: 0, pending: 0, recurring: 0 };
-
-  if (tasks === undefined) {
-    return (
-      <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: 'var(--background)', minHeight: '100vh' }}>
-        <Navigation />
-        <div style={{ padding: '60px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', padding: '60px' }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>⏳</div>
-            <p style={{ fontSize: '18px', color: '#666' }}>加载中...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    
+    // 状态过滤
+    if (filterStatus !== "all" && task.status !== filterStatus) {
+      return false;
+    }
+    
+    // 类型过滤
+    if (filterType !== "all" && task.type !== filterType) {
+      return false;
+    }
+    
+    return true;
+  });
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: 'var(--background)', minHeight: '100vh' }}>
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh', margin: 0, padding: 0 }}>
       <Navigation />
 
       {/* Header */}
@@ -116,40 +48,22 @@ export default function CalendarPage() {
             <span style={{ color: 'white', fontSize: '18px', fontWeight: '700' }}>日历</span>
           </div>
           <h1 style={{ fontSize: 'clamp(36px, 6vw, 56px)', fontWeight: '800', color: 'white', margin: '0 0 20px', letterSpacing: '-1px', textShadow: '0 2px 20px rgba(0,0,0,0.1)' }}>
-            任务调度中心
+            智能日历
           </h1>
           <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.9)', maxWidth: '600px', margin: '0 auto' }}>
-            计划任务与定时作业管理
+            任务调度和定时作业管理
           </p>
         </div>
       </div>
 
       {/* Content */}
-      <div style={{ padding: '60px 20px', maxWidth: '1200px', margin: '-40px auto 0', position: 'relative', zIndex: 10 }}>
-        {/* Stats Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-          <div style={{ backgroundColor: 'var(--card-bg)', padding: '24px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '36px', fontWeight: '800', color: '#667eea', marginBottom: '8px' }}>{stats.total}</div>
-            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '600' }}>总任务</div>
-          </div>
-          <div style={{ backgroundColor: 'var(--card-bg)', padding: '24px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '36px', fontWeight: '800', color: '#16a34a', marginBottom: '8px' }}>{stats.completed}</div>
-            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '600' }}>已完成</div>
-          </div>
-          <div style={{ backgroundColor: 'var(--card-bg)', padding: '24px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '36px', fontWeight: '800', color: '#d97706', marginBottom: '8px' }}>{stats.pending}</div>
-            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '600' }}>待处理</div>
-          </div>
-          <div style={{ backgroundColor: 'var(--card-bg)', padding: '24px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '36px', fontWeight: '800', color: '#9333ea', marginBottom: '8px' }}>{stats.recurring}</div>
-            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: '600' }}>定期任务</div>
-          </div>
-        </div>
-
-        {/* Filters */}
-        <div style={{ backgroundColor: 'var(--card-bg)', padding: '24px', borderRadius: '16px', marginBottom: '32px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
-            <div style={{ flex: '1', minWidth: '200px' }}>
+      <div style={{ padding: '60px 20px', maxWidth: '1000px', margin: '-40px auto 0', position: 'relative', zIndex: 10 }}>
+        {/* Search and Filters */}
+        <div style={{ backgroundColor: 'white', padding: '28px', borderRadius: '20px', marginBottom: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+          {/* Search Bar */}
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ position: 'relative' }}>
+              <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontSize: '18px' }}>🔍</span>
               <input
                 type="text"
                 placeholder="搜索任务..."
@@ -157,216 +71,200 @@ export default function CalendarPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '12px 16px',
+                  padding: '14px 16px 14px 48px',
                   border: '2px solid #e5e7eb',
-                  borderRadius: '10px',
+                  borderRadius: '12px',
                   fontSize: '15px',
                   outline: 'none',
-                  transition: 'border-color 0.2s',
+                  transition: 'all 0.2s ease',
                 }}
                 onFocus={(e) => e.target.style.borderColor = '#667eea'}
                 onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
               />
             </div>
+          </div>
+
+          {/* Filters */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <div>
+              <label style={{ fontSize: '13px', color: '#6b7280', fontWeight: '600', marginBottom: '6px', display: 'block' }}>状态</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                style={{ padding: '12px 16px', border: '2px solid #e5e7eb', borderRadius: '10px', fontSize: '15px', cursor: 'pointer' }}
+                style={{ padding: '10px 16px', border: '2px solid #e5e7eb', borderRadius: '10px', fontSize: '14px', minWidth: '140px', cursor: 'pointer', backgroundColor: 'white' }}
               >
-                <option value="all">全部状态</option>
-                <option value="pending">待处理</option>
+                <option value="all">全部</option>
                 <option value="completed">已完成</option>
-                <option value="cancelled">已取消</option>
+                <option value="pending">待办</option>
               </select>
             </div>
+
             <div>
+              <label style={{ fontSize: '13px', color: '#6b7280', fontWeight: '600', marginBottom: '6px', display: 'block' }}>类型</label>
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                style={{ padding: '12px 16px', border: '2px solid #e5e7eb', borderRadius: '10px', fontSize: '15px', cursor: 'pointer' }}
+                style={{ padding: '10px 16px', border: '2px solid #e5e7eb', borderRadius: '10px', fontSize: '14px', minWidth: '140px', cursor: 'pointer', backgroundColor: 'white' }}
               >
-                <option value="all">全部类型</option>
-                <option value="one-time">一次性</option>
-                <option value="recurring">定期</option>
+                <option value="all">全部</option>
+                <option value="one-time">单次任务</option>
+                <option value="recurring">循环任务</option>
               </select>
             </div>
-            <button
-              onClick={exportCalendar}
-              style={{
-                padding: '12px 24px',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '10px',
-                fontSize: '15px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              📥 导出日历
-            </button>
-            <button
-              onClick={() => setShowEmailSettings(true)}
-              style={{
-                padding: '12px 24px',
-                backgroundColor: 'white',
-                color: '#667eea',
-                border: '2px solid #e5e7eb',
-                borderRadius: '10px',
-                fontSize: '15px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = '#667eea'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = '#e5e7eb'; }}
-            >
-              📧 邮件设置
-            </button>
+
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'flex-end', paddingBottom: '2px' }}>
+              <span style={{ fontSize: '14px', color: '#6b7280', fontWeight: '500' }}>
+                显示 <strong style={{ color: '#667eea' }}>{filteredTasks.length}</strong> / {allTasks.length} 个任务
+              </span>
+            </div>
           </div>
+
+          {/* Active Filters Display */}
+          {(searchQuery || filterStatus !== "all" || filterType !== "all") && (
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #f3f4f6' }}>
+              {searchQuery && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', backgroundColor: '#fef3c7', borderRadius: '8px', fontSize: '13px', color: '#92400e' }}>
+                  <span>搜索: "{searchQuery}"</span>
+                  <button onClick={() => setSearchQuery("")} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', padding: 0, lineHeight: 1 }}>×</button>
+                </div>
+              )}
+              {filterStatus !== "all" && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', backgroundColor: '#dbeafe', borderRadius: '8px', fontSize: '13px', color: '#1e40af' }}>
+                  <span>状态: {filterStatus === 'completed' ? '已完成' : '待办'}</span>
+                  <button onClick={() => setFilterStatus("all")} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', padding: 0, lineHeight: 1 }}>×</button>
+                </div>
+              )}
+              {filterType !== "all" && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', backgroundColor: '#dcfce7', borderRadius: '8px', fontSize: '13px', color: '#166534' }}>
+                  <span>类型: {filterType === 'one-time' ? '单次' : '循环'}</span>
+                  <button onClick={() => setFilterType("all")} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px', padding: 0, lineHeight: 1 }}>×</button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Tasks List */}
-        {filteredTasks.length === 0 ? (
-          <div style={{ backgroundColor: 'var(--card-bg)', padding: '60px', borderRadius: '20px', textAlign: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '64px', marginBottom: '20px' }}>📅</div>
-            <h3 style={{ fontSize: '24px', color: 'var(--text-primary)', marginBottom: '12px', fontWeight: '700' }}>暂无任务</h3>
-            <p style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>开始创建您的第一个任务吧！</p>
+        {/* Today's Tasks */}
+        <div style={{ backgroundColor: 'white', padding: '36px', borderRadius: '20px', marginBottom: '32px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px' }}>
+            <div>
+              <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#1a1a1a', margin: '0 0 6px' }}>今日任务</h2>
+              <p style={{ fontSize: '14px', color: '#9ca3af', margin: 0 }}>{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
+            </div>
+            <div style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '12px', color: 'white', fontSize: '14px', fontWeight: '700' }}>
+              {filteredTasks.filter(t => t.status === 'completed').length}/{filteredTasks.length} 完成
+            </div>
           </div>
-        ) : (
-          <div style={{ display: 'grid', gap: '16px' }}>
-            {filteredTasks.map((task) => {
-              const taskDate = new Date(task.scheduledTime);
-              const timeStr = taskDate.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-              const dateStr = taskDate.toLocaleDateString('zh-CN');
 
-              return (
+          {filteredTasks.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>没有找到任务</h3>
+              <p style={{ fontSize: '14px', color: '#9ca3af', margin: 0 }}>尝试调整搜索或筛选条件</p>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {filteredTasks.map((task) => (
                 <div
-                  key={task._id}
+                  key={task.id}
                   style={{
-                    backgroundColor: 'var(--card-bg)',
-                    padding: '24px',
+                    padding: '20px',
                     borderRadius: '16px',
-                    border: `2px solid ${task.status === 'completed' ? '#16a34a' : task.status === 'cancelled' ? '#ef4444' : '#e5e7eb'}`,
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    opacity: task.status === 'cancelled' ? 0.6 : 1,
+                    border: '2px solid',
+                    borderColor: task.status === 'completed' ? '#dcfce7' : '#f3f4f6',
+                    backgroundColor: task.status === 'completed' ? '#f0fdf4' : 'white',
                     display: 'flex',
-                    gap: '20px',
-                    alignItems: 'flex-start',
-                    position: 'relative',
+                    alignItems: 'center',
+                    gap: '16px',
+                    transition: 'all 0.3s ease'
                   }}
                 >
-                  <button
-                    onClick={() => handleDelete(task._id)}
-                    style={{
-                      position: 'absolute',
-                      top: '16px',
-                      right: '16px',
-                      background: 'none',
-                      border: 'none',
-                      fontSize: '18px',
-                      cursor: 'pointer',
-                      opacity: '0.5',
-                      transition: 'opacity 0.2s',
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '0.5'}
-                    title="删除"
-                  >
-                    🗑️
-                  </button>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    backgroundColor: task.status === 'completed' ? '#dcfce7' : '#f3f4f6',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '20px',
+                    flexShrink: 0
+                  }}>
+                    {task.status === 'completed' ? '✅' : task.type === 'recurring' ? '🔄' : '📋'}
+                  </div>
 
-                  {/* Checkbox */}
-                  <button
-                    onClick={() => handleStatusToggle(task._id, task.status)}
-                    style={{
-                      width: '28px',
-                      height: '28px',
-                      minWidth: '28px',
-                      borderRadius: '8px',
-                      border: '2px solid ' + (task.status === 'completed' ? '#16a34a' : '#d1d5db'),
-                      backgroundColor: task.status === 'completed' ? '#16a34a' : 'white',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '16px',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    {task.status === 'completed' && '✓'}
-                  </button>
-
-                  {/* Task Content */}
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
-                      <h3 style={{
-                        fontSize: '18px',
-                        fontWeight: '700',
-                        color: 'var(--text-primary)',
-                        margin: 0,
-                        textDecoration: task.status === 'completed' ? 'line-through' : 'none',
-                      }}>
-                        {task.title}
-                      </h3>
-                      <div style={{
-                        padding: '6px 12px',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                        fontWeight: '700',
-                        backgroundColor: task.priority === 'high' ? '#fef2f2' : task.priority === 'medium' ? '#fffbeb' : '#f0fdf4',
-                        color: task.priority === 'high' ? '#dc2626' : task.priority === 'medium' ? '#d97706' : '#16a34a',
-                      }}>
-                        {task.priority === 'high' ? '🔴 高' : task.priority === 'medium' ? '🟡 中' : '🟢 低'}
-                      </div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#1a1a1a', marginBottom: '4px' }}>
+                      {task.title}
                     </div>
-
-                    {task.description && (
-                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '12px', margin: '0 0 12px' }}>
-                        {task.description}
-                      </p>
-                    )}
-
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#6b7280', fontWeight: '500' }}>
-                        <span>📅</span>
-                        <span>{dateStr} {timeStr}</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#6b7280', fontWeight: '500' }}>
-                        <span>👤</span>
-                        <span>{task.assignedTo}</span>
-                      </div>
-                      {task.taskType === 'recurring' && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#9333ea', fontWeight: '500' }}>
-                          <span>🔄</span>
-                          <span>定期任务</span>
-                        </div>
-                      )}
-                      <div style={{
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        backgroundColor: task.status === 'completed' ? '#dcfce7' : task.status === 'cancelled' ? '#fee2e2' : '#dbeafe',
-                        color: task.status === 'completed' ? '#16a34a' : task.status === 'cancelled' ? '#dc2626' : '#2563eb',
-                      }}>
-                        {task.status === 'completed' ? '已完成' : task.status === 'cancelled' ? '已取消' : '待处理'}
-                      </div>
+                    <div style={{ fontSize: '13px', color: '#9ca3af', fontWeight: '500' }}>
+                      {task.time} {task.type === 'recurring' ? '· 循环任务' : '· 单次任务'} · {task.priority === 'high' ? '🔴 高优先级' : task.priority === 'medium' ? '🟡 中优先级' : '🟢 低优先级'}
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
 
-      {/* Email Settings Modal */}
-      {showEmailSettings && <EmailSettings onClose={() => setShowEmailSettings(false)} />}
+                  <div style={{
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    backgroundColor: task.status === 'completed' ? '#dcfce7' : task.status === 'pending' ? '#fef3c7' : '#fee2e2',
+                    color: task.status === 'completed' ? '#16a34a' : task.status === 'pending' ? '#d97706' : '#dc2626'
+                  }}>
+                    {task.status === 'completed' ? '已完成' : '待办'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Quick Add */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '40px',
+          borderRadius: '20px',
+          border: '2px dashed rgba(102,126,234,0.2)',
+          textAlign: 'center',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>➕</div>
+          <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>快速添加任务</h3>
+          <p style={{ fontSize: '15px', color: '#666', marginBottom: '24px', margin: '0 0 24px' }}>
+            创建一次性任务或设置循环作业
+          </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button style={{
+              padding: '14px 28px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              borderRadius: '12px',
+              color: 'white',
+              fontSize: '15px',
+              fontWeight: '700',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 4px 15px rgba(102,126,234,0.3)'
+            }}>
+              📋 单次任务
+            </button>
+            <button style={{
+              padding: '14px 28px',
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              color: '#667eea',
+              fontSize: '15px',
+              fontWeight: '700',
+              border: '2px solid #e5e7eb',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}>
+              🔄 循环任务
+            </button>
+          </div>
+          <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '20px', margin: '20px 0 0' }}>
+            集成后可创建 cron 作业和定时任务
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
