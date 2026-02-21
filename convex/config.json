@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "schema": "./convex/schema.ts",
+    "queries": {
+      "listScheduledTasks": "./convex/scheduledTasks.ts:listScheduledTasks",
+      "getScheduledTask": "./convex/scheduledTasks.ts:getScheduledTask",
+      "getTasksByDateRange": "./convex/scheduledTasks.ts:getTasksByDateRange",
+      "getUpcomingTasks": "./convex/scheduledTasks.ts:getUpcomingTasks"
+    },
+    "mutations": {
+      "createScheduledTask": "./convex/scheduledTasks.ts:createScheduledTask",
+      "updateScheduledTask": "./convex/scheduledTasks.ts:updateScheduledTask",
+      "completeScheduledTask": "./convex/scheduledTasks.ts:completeScheduledTask",
+      "cancelScheduledTask": "./convex/scheduledTasks.ts:cancelScheduledTask",
+      "deleteScheduledTask": "./convex/scheduledTasks.ts:deleteScheduledTask"
+    }
+  }
+}
