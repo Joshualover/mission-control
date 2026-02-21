@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/mission-control',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
+  // Vercel 自动配置，不需要特殊设置
 }
 
 module.exports = nextConfig
