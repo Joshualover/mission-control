@@ -11,7 +11,7 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh', margin: 0, padding: 0 }}>
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', backgroundColor: 'var(--background)', minHeight: '100vh', margin: 0, padding: 0 }}>
       {/* Header with Gradient Background */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '100px 20px 80px', position: 'relative', overflow: 'hidden' }}>
         {/* Decorative Elements */}
@@ -45,14 +45,14 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div style={{ padding: '100px 20px', backgroundColor: '#fafafa', position: 'relative' }}>
+      <div style={{ padding: '100px 20px', backgroundColor: 'var(--background)', position: 'relative' }}>
         {/* Overlap the header */}
         <div style={{ maxWidth: '1200px', margin: '-60px auto 0', position: 'relative', zIndex: 10 }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', color: '#1a1a1a', marginBottom: '16px', letterSpacing: '-1px' }}>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-1px' }}>
               六大核心系统
             </h2>
-            <p style={{ fontSize: '18px', color: '#666', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
               从任务调度到数据分析，一站式管理您的 AI 团队
             </p>
           </div>
@@ -61,12 +61,12 @@ export default function Home() {
             {features.map((feature, index) => (
               <a key={feature.id} href={`/${feature.id}`} style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
-                  backgroundColor: 'white',
+                  backgroundColor: 'var(--card-bg)',
                   padding: '40px',
                   borderRadius: '24px',
-                  border: '1px solid rgba(0,0,0,0.06)',
+                  border: '1px solid var(--card-border)',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                  boxShadow: 'var(--shadow)',
                   cursor: 'pointer',
                   height: '100%'
                 }}>
@@ -85,11 +85,11 @@ export default function Home() {
                     {feature.emoji}
                   </div>
 
-                  <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#1a1a1a', marginBottom: '12px', marginTop: '0', letterSpacing: '-0.5px' }}>
+                  <h3 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '12px', marginTop: '0', letterSpacing: '-0.5px' }}>
                     {feature.title}
                   </h3>
 
-                  <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.7', marginBottom: '24px', margin: '0 0 24px 0' }}>
+                  <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '24px', margin: '0 0 24px 0' }}>
                     {feature.desc}
                   </p>
 
@@ -122,7 +122,7 @@ export default function Home() {
       </div>
 
       {/* Stats Section */}
-      <div style={{ backgroundColor: 'white', padding: '100px 20px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+      <div style={{ backgroundColor: 'var(--card-bg)', padding: '100px 20px', borderTop: '1px solid var(--card-border)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '48px', textAlign: 'center' }}>
             <div>
@@ -138,7 +138,7 @@ export default function Home() {
               }}>
                 6
               </div>
-              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>核心模块</div>
+              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '500', letterSpacing: '0.5px' }}>核心模块</div>
             </div>
             <div>
               <div style={{ 
@@ -153,7 +153,7 @@ export default function Home() {
               }}>
                 AI
               </div>
-              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>智能驱动</div>
+              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '500', letterSpacing: '0.5px' }}>智能驱动</div>
             </div>
             <div>
               <div style={{ 
@@ -168,7 +168,7 @@ export default function Home() {
               }}>
                 100%
               </div>
-              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>开源免费</div>
+              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '500', letterSpacing: '0.5px' }}>开源免费</div>
             </div>
             <div>
               <div style={{ 
@@ -183,7 +183,7 @@ export default function Home() {
               }}>
                 24/7
               </div>
-              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>实时同步</div>
+              <div style={{ fontSize: '16px', color: 'var(--text-secondary)', fontWeight: '500', letterSpacing: '0.5px' }}>实时同步</div>
             </div>
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function Home() {
       <style>{`
         a[href] div:hover {
           transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+          box-shadow: var(--shadow-hover);
         }
         a[href]:hover span:last-child {
           transform: translateX(6px);
@@ -206,7 +206,6 @@ export default function Home() {
         a[href] button:hover,
         a[href] > div:hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 35px rgba(0,0,0,0.15);
         }
       `}</style>
     </div>

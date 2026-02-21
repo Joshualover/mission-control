@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "./lib/theme-context";
+import { ConvexClientProvider } from "./components/ConvexClientProvider";
 
 export const metadata: Metadata = {
   title: "Mission Control - AI 团队管理平台",
@@ -12,8 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
-      <body>{children}</body>
+    <html lang="zh-CN" suppressHydrationWarning>
+      <body>
+        <ConvexClientProvider>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </ConvexClientProvider>
+      </body>
     </html>
   );
 }

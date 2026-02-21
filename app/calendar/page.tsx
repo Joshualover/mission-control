@@ -1,6 +1,7 @@
 "use client";
 
 import Navigation from "../components/Navigation";
+import EmailSettings from "../components/EmailSettings";
 import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -14,6 +15,7 @@ export default function CalendarPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
+  const [showEmailSettings, setShowEmailSettings] = useState(false);
 
   const handleStatusToggle = async (taskId: Id<"scheduledTasks">, currentStatus: string) => {
     const newStatus = currentStatus === "completed" ? "pending" : "completed";
@@ -207,6 +209,24 @@ export default function CalendarPage() {
             >
               📥 导出日历
             </button>
+            <button
+              onClick={() => setShowEmailSettings(true)}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: 'white',
+                color: '#667eea',
+                border: '2px solid #e5e7eb',
+                borderRadius: '10px',
+                fontSize: '15px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = '#667eea'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = '#e5e7eb'; }}
+            >
+              📧 邮件设置
+            </button>
           </div>
         </div>
 
@@ -344,6 +364,9 @@ export default function CalendarPage() {
           </div>
         )}
       </div>
+
+      {/* Email Settings Modal */}
+      {showEmailSettings && <EmailSettings onClose={() => setShowEmailSettings(false)} />}
     </div>
   );
 }

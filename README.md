@@ -1,6 +1,6 @@
-# 🎯 任务控制中心
+# 🎯 任务控制中心 (Mission Control)
 
-一个使用 Next.js 14 和 Convex 构建的完整任务调度和管理系统，用于跟踪所有计划任务和 cron 作业。
+一个使用 Next.js 16 和 Convex 实时数据库构建的完整 AI 团队管理平台，集成日历、知识库、团队、办公室、内容管道和数据分析六大核心系统。
 
 ## ✨ 功能特性
 
@@ -204,15 +204,56 @@ mission-control/
 
 ## 📈 未来计划
 
+- [x] 邮件提醒功能 ✨ NEW!
 - [ ] 启用 Convex 实时数据
 - [ ] 拖拽移动任务
 - [ ] 任务搜索和过滤
-- [ ] 导出日历（.ics格式）
-- [ ] 邮件提醒
+- [x] 导出日历（.ics格式）
 - [ ] 任务评论
 - [ ] 任务依赖关系
 - [ ] 统计报表
 - [ ] 深色模式
+
+## 📧 邮件提醒功能
+
+项目现已支持完整的邮件提醒系统！
+
+### 功能特性
+
+- ⏰ **任务截止提醒** - 任务即将到期时自动发送提醒
+- 📊 **状态变更通知** - 任务状态更新时发送通知
+- 📋 **每日摘要** - 每天定时发送任务摘要报告
+- 📈 **每周报告** - 每周一发送本周任务统计
+- 🎛️ **订阅管理** - 用户可自定义通知偏好
+
+### 快速配置
+
+1. **获取 Resend API Key**
+   - 访问 [Resend](https://resend.com) 注册账号
+   - 创建 API Key
+
+2. **配置环境变量**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   编辑 `.env.local`：
+   ```env
+   RESEND_API_KEY=re_xxxxxxxxxxxxx
+   RESEND_FROM_EMAIL=noreply@yourdomain.com
+   CRON_SECRET=your-random-secret-string
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
+
+3. **使用邮件功能**
+   - 打开日历页面
+   - 点击 "📧 邮件设置" 按钮
+   - 输入邮箱并选择通知偏好
+   - 点击 "测试邮件" 验证配置
+
+### 详细文档
+
+查看 [EMAIL_FEATURE.md](./EMAIL_FEATURE.md) 获取完整的配置和使用说明。
 
 ## 📄 许可证
 

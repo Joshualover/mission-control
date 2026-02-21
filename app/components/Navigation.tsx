@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -20,8 +21,8 @@ export default function Navigation() {
       position: 'sticky',
       top: 0,
       zIndex: 50,
-      backgroundColor: 'white',
-      borderBottom: '1px solid rgba(0,0,0,0.08)',
+      backgroundColor: 'var(--nav-bg)',
+      borderBottom: '1px solid var(--nav-border)',
       boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
     }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
@@ -44,32 +45,35 @@ export default function Navigation() {
               M
             </div>
             <div>
-              <div style={{ fontSize: '16px', fontWeight: '700', color: '#1a1a1a', lineHeight: '1.2' }}>Mission Control</div>
-              <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: '500', lineHeight: '1.2' }}>任务控制中心</div>
+              <div style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-primary)', lineHeight: '1.2' }}>Mission Control</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontWeight: '500', lineHeight: '1.2' }}>任务控制中心</div>
             </div>
           </a>
 
-          {/* Navigation Items */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.id}
-                style={{
-                  textDecoration: 'none',
-                  padding: '8px 16px',
-                  borderRadius: '10px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  transition: 'all 0.2s ease',
-                  backgroundColor: pathname === item.id ? 'rgba(102,126,234,0.1)' : 'transparent',
-                  color: pathname === item.id ? '#667eea' : '#4b5563',
-                  border: pathname === item.id ? '1px solid rgba(102,126,234,0.2)' : '1px solid transparent'
-                }}
-              >
-                {item.label.split(' ')[0]} {item.label.split(' ')[1]}
-              </a>
-            ))}
+          {/* Navigation Items + Theme Toggle */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {navItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.id}
+                  style={{
+                    textDecoration: 'none',
+                    padding: '8px 16px',
+                    borderRadius: '10px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    transition: 'all 0.2s ease',
+                    backgroundColor: pathname === item.id ? 'rgba(102,126,234,0.1)' : 'transparent',
+                    color: pathname === item.id ? '#667eea' : 'var(--text-secondary)',
+                    border: pathname === item.id ? '1px solid rgba(102,126,234,0.2)' : '1px solid transparent'
+                  }}
+                >
+                  {item.label.split(' ')[0]} {item.label.split(' ')[1]}
+                </a>
+              ))}
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </div>
