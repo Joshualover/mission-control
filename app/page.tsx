@@ -32,20 +32,20 @@ type ScheduledTask = {
 };
 
 const PRIORITIES = [
-  { value: "low", label: "🟢 低", color: "bg-green-100 text-green-800" },
-  { value: "medium", label: "🟡 中", color: "bg-yellow-100 text-yellow-800" },
-  { value: "high", label: "🔴 高", color: "bg-red-100 text-red-800" },
+  { value: "low", label: "Green 低", color: "bg-green-100 text-green-800" },
+  { value: "medium", label: "Yellow 中", color: "bg-yellow-100 text-yellow-800" },
+  { value: "high", label: "Red 高", color: "bg-red-100 text-red-800" },
 ] as const;
 
 const ASSIGNEES = [
-  { value: "斌哥", label: "斌哥", avatar: "👨‍💼" },
-  { value: "约书亚", label: "约书亚", avatar: "🤖" },
+  { value: "斌哥", label: "斌哥", avatar: "Boss" },
+  { value: "约书亚", label: "约书亚", avatar: "Bot" },
 ] as const;
 
 const STATUSES = [
-  { value: "pending", label: "⏳ 待执行", color: "bg-blue-100 text-blue-800" },
-  { value: "completed", label: "✅ 已完成", color: "bg-green-100 text-green-800" },
-  { value: "cancelled", label: "❌ 已取消", color: "bg-gray-100 text-gray-800" },
+  { value: "pending", label: "WAIT 待执行", color: "bg-blue-100 text-blue-800" },
+  { value: "completed", label: "OK 已完成", color: "bg-green-100 text-green-800" },
+  { value: "cancelled", label: "X 已取消", color: "bg-gray-100 text-gray-800" },
 ] as const;
 
 export default function Home() {
@@ -204,7 +204,7 @@ export default function Home() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                📅 日历视图
+                Calendar 日历视图
               </h1>
               <p className="text-gray-600">跟踪所有计划任务和 cron 作业</p>
             </div>
@@ -378,7 +378,7 @@ export default function Home() {
             {selectedDate && (
               <div className="bg-white rounded-lg p-6 shadow-md">
                 <h3 className="text-lg font-bold mb-4">
-                  📅 {format(selectedDate, "yyyy年MM月dd日", { locale: zhCN })}的任务
+                  Calendar {format(selectedDate, "yyyy年MM月dd日", { locale: zhCN })}的任务
                 </h3>
                 <div className="space-y-2">
                   {getTasksForDate(selectedDate).map((task) => (
@@ -403,7 +403,7 @@ export default function Home() {
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
-              <h2 className="text-2xl font-bold mb-4">📝 计划新任务</h2>
+              <h2 className="text-2xl font-bold mb-4">Doc 计划新任务</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">任务标题 *</label>
@@ -559,7 +559,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-sm font-semibold text-gray-600 mb-1">任务类型</h3>
                     <p className="text-gray-800">
-                      {selectedTask.taskType === "recurring" ? "🔄 定期任务" : "📅 一次性"}
+                      {selectedTask.taskType === "recurring" ? "🔄 定期任务" : "Calendar 一次性"}
                     </p>
                   </div>
                   {selectedTask.recurrenceRule && (
@@ -599,7 +599,7 @@ export default function Home() {
                         }}
                         className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all"
                       >
-                        ✅ 完成
+                        OK 完成
                       </button>
                       <button
                         onClick={() => {
@@ -611,7 +611,7 @@ export default function Home() {
                         }}
                         className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-all"
                       >
-                        ❌ 取消
+                        X 取消
                       </button>
                     </>
                   )}
@@ -622,7 +622,7 @@ export default function Home() {
                     }}
                     className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all"
                   >
-                    🗑️ 删除
+                    删除
                   </button>
                 </div>
               </div>
