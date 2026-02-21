@@ -53,4 +53,27 @@ export default defineSchema({
   })
     .index("by_role", ["role"])
     .index("by_status", ["status"]),
+
+  projects: defineTable({
+    title: v.string(),
+    description: v.string(),
+    stage: v.union(
+      v.literal("idea"),
+      v.literal("script"),
+      v.literal("production"),
+      v.literal("post-production"),
+      v.literal("review"),
+      v.literal("published")
+    ),
+    content: v.optional(v.string()),
+    images: v.optional(v.array(v.string())), // 图片URL数组
+    assignedTo: v.union(v.literal("斌哥"), v.literal("约书亚")),
+    priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    publishedAt: v.optional(v.number()),
+  })
+    .index("by_stage", ["stage"])
+    .index("by_assignedTo", ["assignedTo"])
+    .index("by_priority", ["priority"]),
 });
