@@ -1,5 +1,6 @@
-import Navigation from "../components/Navigation";
 "use client";
+
+import Navigation from "../components/Navigation";
 
 export default function OfficePage() {
   const tasks = [
@@ -8,11 +9,9 @@ export default function OfficePage() {
   ];
 
   return (
-    <>
-    <Navigation />
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
+      <Navigation />
 
-
-<div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '80px 20px 60px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -111,11 +110,11 @@ export default function OfficePage() {
         }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>📊</div>
           <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#1a1a1a', marginBottom: '8px' }}>实时数据</h3>
-          <p style={{ fontSize: '15px', color: '#666', margin: 0 }}>
+          <p style={{ fontSize: '15px', color: '#666' }}>
             集成 Convex 后显示实时工作状态和统计数据
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
