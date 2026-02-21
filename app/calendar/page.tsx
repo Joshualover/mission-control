@@ -1,5 +1,7 @@
 "use client";
 
+import Navigation from "../components/Navigation";
+
 export default function CalendarPage() {
   const tasks = [
     { id: 1, title: "完成界面设计", time: "09:00", status: "completed", type: "one-time" },
@@ -8,7 +10,9 @@ export default function CalendarPage() {
   ];
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh', margin: 0, padding: 0 }}>
+      <Navigation />
+
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '80px 20px 60px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
