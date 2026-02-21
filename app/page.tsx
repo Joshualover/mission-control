@@ -2,33 +2,42 @@
 
 export default function Home() {
   const features = [
-    { id: "calendar", emoji: "📅", title: "智能日历", desc: "任务调度与定时作业", icon: "📅" },
-    { id: "memories", emoji: "🧠", title: "记忆库", desc: "知识管理与检索", icon: "🧠" },
-    { id: "team", emoji: "👥", title: "团队管理", desc: "AI代理成员协作", icon: "👥" },
-    { id: "office", emoji: "🏢", title: "办公室", desc: "实时工作监控", icon: "🏢" },
-    { id: "pipeline", emoji: "🎬", title: "内容管道", desc: "创作流程管理", icon: "🎬" },
-    { id: "analytics", emoji: "📊", title: "数据分析", desc: "统计与可视化", icon: "📊" },
+    { id: "calendar", emoji: "📅", title: "智能日历", desc: "任务调度与定时作业管理", color: "from-blue-500 to-cyan-400" },
+    { id: "memories", emoji: "🧠", title: "记忆库", desc: "知识管理与快速检索", color: "from-purple-500 to-pink-400" },
+    { id: "team", emoji: "👥", title: "团队管理", desc: "AI 代理成员协作", color: "from-green-500 to-emerald-400" },
+    { id: "office", emoji: "🏢", title: "办公室", desc: "实时工作状态监控", color: "from-orange-500 to-amber-400" },
+    { id: "pipeline", emoji: "🎬", title: "内容管道", desc: "六阶段创作流程", color: "from-pink-500 to-rose-400" },
+    { id: "analytics", emoji: "📊", title: "数据分析", desc: "统计与可视化洞察", color: "from-indigo-500 to-violet-400" },
   ];
 
   return (
-    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#ffffff', minHeight: '100vh', margin: 0, padding: 0 }}>
-      {/* Gradient Header */}
-      <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '60px 20px', textAlign: 'center', color: 'white' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-block', padding: '8px 16px', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '20px', marginBottom: '24px', fontSize: '14px', fontWeight: '500' }}>
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh', margin: 0, padding: 0 }}>
+      {/* Header with Gradient Background */}
+      <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '100px 20px 80px', position: 'relative', overflow: 'hidden' }}>
+        {/* Decorative Elements */}
+        <div style={{ position: 'absolute', top: '-50%', right: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', borderRadius: '50%' }}></div>
+        <div style={{ position: 'absolute', bottom: '-30%', left: '-5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)', borderRadius: '50%' }}></div>
+
+        <div style={{ position: 'relative', maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ display: 'inline-block', padding: '10px 24px', backgroundColor: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', borderRadius: '30px', marginBottom: '28px', fontSize: '15px', fontWeight: '600', color: 'white', letterSpacing: '0.5px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
             ✨ AI 团队管理平台
           </div>
-          <h1 style={{ fontSize: '64px', fontWeight: '800', margin: '0 0 20px 0', letterSpacing: '-2px', textShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+
+          <h1 style={{ fontSize: 'clamp(40px, 8vw, 72px)', fontWeight: '800', margin: '0 0 24px 0', color: 'white', lineHeight: '1.1', letterSpacing: '-2px', textShadow: '0 2px 20px rgba(0,0,0,0.1)' }}>
             任务控制中心
           </h1>
-          <p style={{ fontSize: '22px', opacity: 0.95, lineHeight: '1.5', marginBottom: '32px', fontWeight: '300' }}>
-            统一管理 AI 代理团队的六大核心系统
+
+          <p style={{ fontSize: 'clamp(18px, 3vw, 24px)', color: 'rgba(255,255,255,0.95)', lineHeight: '1.6', marginBottom: '40px', fontWeight: '400', maxWidth: '700px', margin: '0 auto 40px' }}>
+            为 AI 代理团队打造的统一管理平台
+            <br />
+            集成日历、知识库、团队、办公室、内容管道和数据分析
           </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/calendar" style={{ padding: '16px 32px', backgroundColor: 'white', color: '#667eea', textDecoration: 'none', borderRadius: '12px', fontWeight: '700', fontSize: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.2)', transition: 'transform 0.2s' }}>
+
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href="/calendar" style={{ padding: '18px 40px', backgroundColor: 'white', color: '#667eea', textDecoration: 'none', borderRadius: '16px', fontWeight: '700', fontSize: '17px', boxShadow: '0 8px 30px rgba(0,0,0,0.12)', transition: 'all 0.3s ease', border: 'none', cursor: 'pointer' }}>
               🚀 开始使用
             </a>
-            <a href="https://github.com/Joshualover/mission-control" target="_blank" rel="noopener noreferrer" style={{ padding: '16px 32px', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', textDecoration: 'none', borderRadius: '12px', fontWeight: '700', fontSize: '16px', backdropFilter: 'blur(10px)' }}>
+            <a href="https://github.com/Joshualover/mission-control" target="_blank" rel="noopener noreferrer" style={{ padding: '18px 40px', backgroundColor: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', color: 'white', textDecoration: 'none', borderRadius: '16px', fontWeight: '700', fontSize: '17px', transition: 'all 0.3s ease', border: '2px solid rgba(255,255,255,0.3)', cursor: 'pointer' }}>
               📦 GitHub
             </a>
           </div>
@@ -36,58 +45,74 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div style={{ padding: '80px 20px', backgroundColor: '#f8f9fa' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ padding: '100px 20px', backgroundColor: '#fafafa', position: 'relative' }}>
+        {/* Overlap the header */}
+        <div style={{ maxWidth: '1200px', margin: '-60px auto 0', position: 'relative', zIndex: 10 }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <h2 style={{ fontSize: '42px', fontWeight: '800', color: '#1a202c', marginBottom: '16px', letterSpacing: '-1px' }}>
-              六大核心功能
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', color: '#1a1a1a', marginBottom: '16px', letterSpacing: '-1px' }}>
+              六大核心系统
             </h2>
-            <p style={{ fontSize: '18px', color: '#718096', maxWidth: '600px', margin: '0 auto' }}>
+            <p style={{ fontSize: '18px', color: '#666', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
               从任务调度到数据分析，一站式管理您的 AI 团队
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px' }}>
             {features.map((feature, index) => (
               <a key={feature.id} href={`/${feature.id}`} style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
                   backgroundColor: 'white',
-                  padding: '36px',
-                  borderRadius: '20px',
-                  border: '1px solid #e2e8f0',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
-                  cursor: 'pointer'
+                  padding: '40px',
+                  borderRadius: '24px',
+                  border: '1px solid rgba(0,0,0,0.06)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                  cursor: 'pointer',
+                  height: '100%'
                 }}>
                   <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: index === 0 ? '#ebf8ff' : index === 1 ? '#faf5ff' : index === 2 ? '#f0fff4' : index === 3 ? '#fffaf0' : index === 4 ? '#fff5f5' : '#ebf8ff',
-                    borderRadius: '16px',
+                    width: '72px',
+                    height: '72px',
+                    borderRadius: '20px',
+                    background: `linear-gradient(135deg, ${feature.color.split(' ')[0].replace('from-', '#').replace('to-', '→')})`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '20px',
-                    fontSize: '32px'
+                    marginBottom: '24px',
+                    fontSize: '36px',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.15)'
                   }}>
                     {feature.emoji}
                   </div>
-                  <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#1a202c', marginBottom: '12px', marginTop: '0' }}>
+
+                  <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#1a1a1a', marginBottom: '12px', marginTop: '0', letterSpacing: '-0.5px' }}>
                     {feature.title}
                   </h3>
-                  <p style={{ fontSize: '16px', color: '#718096', lineHeight: '1.6', marginBottom: '20px', margin: '0' }}>
+
+                  <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.7', marginBottom: '24px', margin: '0 0 24px 0' }}>
                     {feature.desc}
                   </p>
+
                   <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
-                    color: index === 0 ? '#3182ce' : index === 1 ? '#805ad5' : index === 2 ? '#38a169' : index === 3 ? '#dd6b20' : index === 4 ? '#e53e3e' : '#3182ce',
                     fontWeight: '600',
-                    fontSize: '14px'
+                    fontSize: '15px',
+                    transition: 'all 0.3s ease'
                   }}>
-                    <span>了解更多</span>
-                    <span style={{ transition: 'transform 0.2s' }}>→</span>
+                    <span style={{ 
+                      background: `linear-gradient(135deg, ${feature.color.replace('from-', '').replace(' to-', ', ')})`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}>
+                      了解更多
+                    </span>
+                    <span style={{ 
+                      transition: 'transform 0.3s ease',
+                      fontSize: '18px'
+                    }}>→</span>
                   </div>
                 </div>
               </a>
@@ -97,51 +122,91 @@ export default function Home() {
       </div>
 
       {/* Stats Section */}
-      <div style={{ backgroundColor: 'white', padding: '80px 20px' }}>
+      <div style={{ backgroundColor: 'white', padding: '100px 20px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', textAlign: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '48px', textAlign: 'center' }}>
             <div>
-              <div style={{ fontSize: '56px', fontWeight: '800', color: '#667eea', marginBottom: '12px', lineHeight: '1' }}>
+              <div style={{ 
+                fontSize: '64px', 
+                fontWeight: '800', 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '16px',
+                lineHeight: '1'
+              }}>
                 6
               </div>
-              <div style={{ fontSize: '16px', color: '#718096', fontWeight: '500' }}>核心模块</div>
+              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>核心模块</div>
             </div>
             <div>
-              <div style={{ fontSize: '56px', fontWeight: '800', color: '#764ba2', marginBottom: '12px', lineHeight: '1' }}>
+              <div style={{ 
+                fontSize: '64px', 
+                fontWeight: '800', 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '16px',
+                lineHeight: '1'
+              }}>
                 AI
               </div>
-              <div style={{ fontSize: '16px', color: '#718096', fontWeight: '500' }}>智能驱动</div>
+              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>智能驱动</div>
             </div>
             <div>
-              <div style={{ fontSize: '56px', fontWeight: '800', color: '#667eea', marginBottom: '12px', lineHeight: '1' }}>
+              <div style={{ 
+                fontSize: '64px', 
+                fontWeight: '800', 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '16px',
+                lineHeight: '1'
+              }}>
                 100%
               </div>
-              <div style={{ fontSize: '16px', color: '#718096', fontWeight: '500' }}>开源免费</div>
+              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>开源免费</div>
             </div>
             <div>
-              <div style={{ fontSize: '56px', fontWeight: '800', color: '#764ba2', marginBottom: '12px', lineHeight: '1' }}>
+              <div style={{ 
+                fontSize: '64px', 
+                fontWeight: '800', 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '16px',
+                lineHeight: '1'
+              }}>
                 24/7
               </div>
-              <div style={{ fontSize: '16px', color: '#718096', fontWeight: '500' }}>实时同步</div>
+              <div style={{ fontSize: '16px', color: '#666', fontWeight: '500', letterSpacing: '0.5px' }}>实时同步</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div style={{ backgroundColor: '#1a202c', color: 'white', padding: '40px 20px', textAlign: 'center' }}>
-        <p style={{ margin: '0 0 8px 0', color: '#a0aec0' }}>Built with Next.js 16 + Tailwind CSS</p>
-        <p style={{ margin: 0, fontSize: '14px', color: '#718096' }}>© 2024 Mission Control. All rights reserved.</p>
+      <div style={{ backgroundColor: '#1a1a1a', color: 'rgba(255,255,255,0.7)', padding: '60px 20px', textAlign: 'center' }}>
+        <p style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '500' }}>Built with Next.js 16 + Tailwind CSS</p>
+        <p style={{ margin: 0, fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>© 2024 Mission Control. All rights reserved.</p>
       </div>
 
       <style>{`
-        a[href].hover:hover div {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-          border-color: #cbd5e0;
+        a[href] div:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        a[href].hover:hover span:last-child {
-          transform: translateX(4px);
+        a[href]:hover span:last-child {
+          transform: translateX(6px);
+        }
+        a[href] button:hover,
+        a[href] > div:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 35px rgba(0,0,0,0.15);
         }
       `}</style>
     </div>
