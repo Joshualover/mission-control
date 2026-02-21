@@ -17,6 +17,7 @@ export default function Home() {
 
   const features = [
     {
+      id: "calendar",
       icon: "📅",
       title: "智能日历",
       description: "任务调度和 cron 作业管理",
@@ -24,6 +25,7 @@ export default function Home() {
       bgColor: "bg-blue-50",
     },
     {
+      id: "memories",
       icon: "🧠",
       title: "记忆库",
       description: "知识管理和快速检索",
@@ -31,6 +33,7 @@ export default function Home() {
       bgColor: "bg-purple-50",
     },
     {
+      id: "team",
       icon: "👥",
       title: "团队管理",
       description: "AI 代理成员和职责分配",
@@ -38,6 +41,7 @@ export default function Home() {
       bgColor: "bg-green-50",
     },
     {
+      id: "office",
       icon: "🏢",
       title: "数字办公室",
       description: "实时工作状态监控",
@@ -45,6 +49,7 @@ export default function Home() {
       bgColor: "bg-indigo-50",
     },
     {
+      id: "pipeline",
       icon: "🎬",
       title: "内容管道",
       description: "六阶段创作流程管理",
@@ -52,6 +57,7 @@ export default function Home() {
       bgColor: "bg-pink-50",
     },
     {
+      id: "analytics",
       icon: "📊",
       title: "数据分析",
       description: "数据洞察和统计报表",
