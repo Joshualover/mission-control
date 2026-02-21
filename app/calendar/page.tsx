@@ -8,6 +8,92 @@ export default function CalendarPage() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
 
+  // 生成.ics文件内容
+  const generateICSFile = (tasks) => {
+    let icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Mission Control//Calendar Export//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+    ];
+
+    tasks.forEach(task => {
+      // 获取今天的日期
+      const today = new Date();
+      const [hours, minutes] = task.time.split(':').map(Number);
+
+      // 开始时间 (UTC)
+      const startDate = new Date(today);
+      startDate.setHours(hours, minutes, 0, 0);
+      const startUTC = formatDateToUTC(startDate);
+
+      // 结束时间 (假设任务持续1小时)
+      const endDate = new Date(startDate);
+      endDate.setHours(endDate.getHours() + 1);
+      const endUTC = formatDateToUTC(endDate);
+
+      // 优先级映射
+      const priorityMap = { high: 9, medium: 5, low: 1 };
+
+      // VEVENT
+      icsContent.push('BEGIN:VEVENT');
+      icsContent.push(`UID:${task.id}@missioncontrol`);
+      icsContent.push(`DTSTAMP:${formatDateToUTC(new Date())}`);
+      icsContent.push(`DTSTART:${startUTC}`);
+      icsContent.push(`DTEND:${endUTC}`);
+      icsContent.push(`SUMMARY:${task.title}`);
+      icsContent.push(`DESCRIPTION:优先级: ${task.priority}\\n状态: ${task.status}\\n类型: ${task.type}`);
+      icsContent.push(`PRIORITY:${priorityMap[task.priority]}`);
+      icsContent.push(`STATUS:${task.status === 'completed' ? 'COMPLETED' : 'CONFIRMED'}`);
+
+      // 如果是循环任务，添加RRULE
+      if (task.type === 'recurring') {
+        icsContent.push('RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR');
+      }
+
+      icsContent.push('END:VEVENT');
+    });
+
+    icsContent.push('END:VCALENDAR');
+    return icsContent.join('\r\n');
+  };
+
+  // 格式化日期为UTC格式 (YYYYMMDDTHHmmssZ)
+  const formatDateToUTC = (date) => {
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+  };
+
+  // 下载.ics文件
+  const downloadICS = (content, filename = 'calendar.ics') => {
+    const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  };
+
+  // 导出所有任务
+  const exportAllTasks = () => {
+    const icsContent = generateICSFile(filteredTasks);
+    downloadICS(icsContent, 'mission-control-calendar.ics');
+  };
+
+  // 导出单个任务
+  const exportSingleTask = (task) => {
+    const icsContent = generateICSFile([task]);
+    downloadICS(icsContent, `${task.title.replace(/\s+/g, '-')}.ics`);
+  };
+
   const allTasks = [
     { id: 1, title: "完成界面设计", time: "09:00", status: "completed", type: "one-time", priority: "high" },
     { id: 2, title: "团队会议", time: "14:00", status: "pending", type: "recurring", priority: "medium" },
@@ -112,8 +198,27 @@ export default function CalendarPage() {
               </select>
             </div>
 
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'flex-end', paddingBottom: '2px' }}>
-              <span style={{ fontSize: '14px', color: '#6b7280', fontWeight: '500' }}>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
+              <button
+                onClick={exportAllTasks}
+                disabled={filteredTasks.length === 0}
+                style={{
+                  padding: '10px 20px',
+                  background: filteredTasks.length > 0 ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#e5e7eb',
+                  borderRadius: '10px',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  border: 'none',
+                  cursor: filteredTasks.length > 0 ? 'pointer' : 'not-allowed',
+                  boxShadow: filteredTasks.length > 0 ? '0 4px 15px rgba(102,126,234,0.3)' : 'none',
+                  transition: 'all 0.3s ease',
+                  opacity: filteredTasks.length > 0 ? 1 : 0.5
+                }}
+              >
+                📥 导出日历
+              </button>
+              <span style={{ fontSize: '14px', color: '#6b7280', fontWeight: '500', paddingBottom: '2px' }}>
                 显示 <strong style={{ color: '#667eea' }}>{filteredTasks.length}</strong> / {allTasks.length} 个任务
               </span>
             </div>
@@ -202,15 +307,34 @@ export default function CalendarPage() {
                     </div>
                   </div>
 
-                  <div style={{
-                    padding: '8px 16px',
-                    borderRadius: '20px',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    backgroundColor: task.status === 'completed' ? '#dcfce7' : task.status === 'pending' ? '#fef3c7' : '#fee2e2',
-                    color: task.status === 'completed' ? '#16a34a' : task.status === 'pending' ? '#d97706' : '#dc2626'
-                  }}>
-                    {task.status === 'completed' ? '已完成' : '待办'}
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <button
+                      onClick={() => exportSingleTask(task)}
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '20px',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        backgroundColor: 'white',
+                        color: '#667eea',
+                        border: '2px solid #e5e7eb',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      title="导出此任务为.ics文件"
+                    >
+                      📥
+                    </button>
+                    <div style={{
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      backgroundColor: task.status === 'completed' ? '#dcfce7' : task.status === 'pending' ? '#fef3c7' : '#fee2e2',
+                      color: task.status === 'completed' ? '#16a34a' : task.status === 'pending' ? '#d97706' : '#dc2626'
+                    }}>
+                      {task.status === 'completed' ? '已完成' : '待办'}
+                    </div>
                   </div>
                 </div>
               ))}
