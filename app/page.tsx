@@ -215,6 +215,12 @@ export default function Home() {
               >
                 🧠 记忆库
               </a>
+              <a
+                href="/team"
+                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
+              >
+                👥 团队
+              </a>
               <button
                 onClick={() => setShowForm(true)}
                 className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"

@@ -10,7 +10,11 @@
       "getMemory": "./convex/memories.ts:getMemory",
       "getMemoriesByCategory": "./convex/memories.ts:getMemoriesByCategory",
       "searchMemories": "./convex/memories.ts:searchMemories",
-      "getCategories": "./convex/memories.ts:getCategories"
+      "getCategories": "./convex/memories.ts:getCategories",
+      "listTeamMembers": "./convex/teamMembers.ts:listTeamMembers",
+      "getTeamMember": "./convex/teamMembers.ts:getTeamMember",
+      "getMembersByRole": "./convex/teamMembers.ts:getMembersByRole",
+      "getMembersByStatus": "./convex/teamMembers.ts:getMembersByStatus"
     },
     "mutations": {
       "createScheduledTask": "./convex/scheduledTasks.ts:createScheduledTask",
@@ -20,7 +24,11 @@
       "deleteScheduledTask": "./convex/scheduledTasks.ts:deleteScheduledTask",
       "createMemory": "./convex/memories.ts:createMemory",
       "updateMemory": "./convex/memories.ts:updateMemory",
-      "deleteMemory": "./convex/memories.ts:deleteMemory"
+      "deleteMemory": "./convex/memories.ts:deleteMemory",
+      "createTeamMember": "./convex/teamMembers.ts:createTeamMember",
+      "updateMemberStatus": "./convex/teamMembers.ts:updateMemberStatus",
+      "updateTeamMember": "./convex/teamMembers.ts:updateTeamMember",
+      "deleteTeamMember": "./convex/teamMembers.ts:deleteTeamMember"
     }
   }
 }
