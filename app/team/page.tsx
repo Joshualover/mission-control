@@ -226,18 +226,24 @@ export default function TeamPage() {
               </h1>
               <p className="text-gray-600">AI代理团队成员和职责分配</p>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex flex-wrap gap-3">
               <a
                 href="/"
-                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
+                className="px-4 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
               >
                 📅 日历
               </a>
               <a
                 href="/memories"
-                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
+                className="px-4 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-md border-2 border-blue-600"
               >
                 🧠 记忆库
+              </a>
+              <a
+                href="/office"
+                className="px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg"
+              >
+                🏢 办公室
               </a>
             </div>
           </div>
