@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Id } from "../convex/_generated/dataModel";
+import { Id } from "../../types";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 

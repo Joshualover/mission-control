@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Id } from "../convex/_generated/dataModel";
+import { Id } from "../../types";
 
 type Project = {
   _id: Id<"projects">;
@@ -294,7 +294,7 @@ export default function PipelinePage() {
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          priority: e.target.value as "low" | "medium" | "high",
+                          priority: e.target.value as const,
                         })
                       }
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
