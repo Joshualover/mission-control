@@ -80,10 +80,10 @@ export default function PipelinePage() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    stage: "idea" as const,
+    stage: "idea"  as any,
     content: "",
-    assignedTo: "斌哥" as const,
-    priority: "medium" as const,
+    assignedTo: "斌哥"  as any,
+    priority: "medium"  as any,
   });
 
   useEffect(() => {
@@ -294,7 +294,7 @@ export default function PipelinePage() {
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          priority: e.target.value as const,
+                          priority: e.target.value  as any,
                         })
                       }
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"

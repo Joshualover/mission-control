@@ -114,13 +114,20 @@ export default function MemoriesPage() {
   const [selectedImportance, setSelectedImportance] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    content: string;
+    category: string;
+    tags: string;
+    source: string;
+    importance: "low" | "medium" | "high";
+  }>({
     title: "",
     content: "",
     category: "",
     tags: "",
     source: "",
-    importance: "medium" as const,
+    importance: "medium",
   });
 
   useEffect(() => {
