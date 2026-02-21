@@ -1,5 +1,6 @@
-import Navigation from "../components/Navigation";
 "use client";
+
+import Navigation from "../components/Navigation";
 
 export default function PipelinePage() {
   const projects = [
@@ -17,11 +18,9 @@ export default function PipelinePage() {
   ];
 
   return (
-    <>
-    <Navigation />
+    <div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
+      <Navigation />
 
-
-<div style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', backgroundColor: '#fafafa', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '80px 20px 60px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -69,7 +68,6 @@ export default function PipelinePage() {
           {projects.map((project) => {
             const stageInfo = stages.find(s => s.key === project.stage) || stages[0];
             return (
-    <>
               <div
                 key={project.id}
                 style={{
@@ -141,6 +139,6 @@ export default function PipelinePage() {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
