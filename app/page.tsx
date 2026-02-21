@@ -6,253 +6,219 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
 
   const tabs = [
-    { id: "home", label: "HOME", icon: "⚡" },
-    { id: "calendar", label: "CAL", icon: "📅" },
-    { id: "memories", label: "MEM", icon: "🧠" },
-    { id: "team", label: "TEAM", icon: "👥" },
-    { id: "office", label: "OFF", icon: "🏢" },
-    { id: "pipeline", label: "PIPE", icon: "🎬" },
-    { id: "analytics", label: "ANA", icon: "📊" },
+    { id: "home", label: "主页", icon: "⚡", href: "/" },
+    { id: "calendar", label: "日历", icon: "📅", href: "/calendar" },
+    { id: "memories", label: "记忆", icon: "🧠", href: "/memories" },
+    { id: "team", label: "团队", icon: "👥", href: "/team" },
+    { id: "office", label: "办公室", icon: "🏢", href: "/office" },
+    { id: "pipeline", label: "管道", icon: "🎬", href: "/pipeline" },
+    { id: "analytics", label: "分析", icon: "📊", href: "/analytics" },
   ];
 
   const features = [
     {
       id: "calendar",
-      icon: "📅",
-      title: "CALENDAR",
-      subtitle: "任务调度系统",
-      description: "智能日历管理和自动化作业调度",
-      color: "#00ff9d",
+      emoji: "📅",
+      title: "智能日历",
+      description: "管理任务和调度",
+      detail: "任务调度和定时作业管理",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
+      border: "border-blue-200",
     },
     {
       id: "memories",
-      icon: "🧠",
-      title: "MEMORY",
-      subtitle: "知识库系统",
-      description: "知识管理和快速检索引擎",
-      color: "#00d4ff",
+      emoji: "🧠",
+      title: "记忆库",
+      description: "知识管理",
+      detail: "知识库和快速检索系统",
+      color: "text-purple-600",
+      bg: "bg-purple-50",
+      border: "border-purple-200",
     },
     {
       id: "team",
-      icon: "👥",
-      title: "TEAM",
-      subtitle: "团队管理",
-      description: "AI代理成员协作和职责分配",
-      color: "#ff6b9d",
+      emoji: "👥",
+      title: "团队",
+      description: "成员管理",
+      detail: "AI 代理成员和协作",
+      color: "text-green-600",
+      bg: "bg-green-50",
+      border: "border-green-200",
     },
     {
       id: "office",
-      icon: "🏢",
-      title: "OFFICE",
-      subtitle: "数字办公室",
-      description: "实时工作状态监控面板",
-      color: "#ffcc00",
+      emoji: "🏢",
+      title: "办公室",
+      description: "工作监控",
+      detail: "实时工作状态面板",
+      color: "text-orange-600",
+      bg: "bg-orange-50",
+      border: "border-orange-200",
     },
     {
       id: "pipeline",
-      icon: "🎬",
-      title: "PIPELINE",
-      subtitle: "内容管道",
-      description: "六阶段创作流程管理",
-      color: "#ff6b6b",
+      emoji: "🎬",
+      title: "内容管道",
+      description: "创作流程",
+      detail: "六阶段项目管理",
+      color: "text-pink-600",
+      bg: "bg-pink-50",
+      border: "border-pink-200",
     },
     {
       id: "analytics",
-      icon: "📊",
-      title: "ANALYTICS",
-      subtitle: "数据分析",
-      description: "统计报表和数据洞察",
-      color: "#c084fc",
+      emoji: "📊",
+      title: "数据分析",
+      description: "统计报表",
+      detail: "数据洞察和可视化",
+      color: "text-indigo-600",
+      bg: "bg-indigo-50",
+      border: "border-indigo-200",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] font-mono">
-      {/* Scanlines Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, #000 1px, #000 2px)',
-          backgroundSize: '100% 4px'
-        }}></div>
-      </div>
-
-      {/* Grid Background */}
-      <div className="fixed inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }}></div>
-      </div>
-
-      <div className="relative z-10">
-        {/* Header */}
-        <header className="border-b-2 border-[#00ff9d]/20">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 border-2 border-[#00ff9d] flex items-center justify-center bg-[#00ff9d]/5">
-                  <span className="text-xl font-bold" style={{ color: '#00ff9d' }}>M</span>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-white tracking-wider">MISSION CONTROL</h1>
-                  <p className="text-xs text-gray-500 tracking-widest">AI TEAM MANAGEMENT PLATFORM</p>
-                </div>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">M</span>
               </div>
-
-              <nav className="hidden md:flex items-center gap-1">
-                {tabs.map((tab) => (
-                  <a
-                    key={tab.id}
-                    href={tab.id === "home" ? "/" : `/${tab.id}`}
-                    className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all tracking-wider border border-transparent hover:border-white/10"
-                  >
-                    {tab.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </div>
-        </header>
-
-        {/* Hero Section */}
-        <section className="border-b border-gray-800">
-          <div className="max-w-7xl mx-auto px-6 py-20">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#00ff9d]/30 mb-8" style={{ backgroundColor: 'rgba(0,255,157,0.05)' }}>
-                  <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#00ff9d' }}></div>
-                  <span className="text-xs font-medium tracking-wider" style={{ color: '#00ff9d' }}>SYSTEM ONLINE</span>
-                </div>
-
-                <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tight">
-                  任务控制
-                  <br />
-                  <span style={{ color: '#00ff9d' }}>中心</span>
-                </h1>
-
-                <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-lg">
-                  为AI代理团队打造的统一管理平台。
-                  <br />
-                  集成六大核心系统，实现高效协作。
-                </p>
-
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="/calendar"
-                    className="px-8 py-4 bg-[#00ff9d] text-black font-bold text-sm tracking-wider hover:bg-[#00ff9d]/80 transition-all"
-                    style={{ boxShadow: '0 0 20px rgba(0,255,157,0.3)' }}
-                  >
-                    启动系统 →
-                  </a>
-                  <a
-                    href="https://github.com/Joshualover/mission-control"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-8 py-4 border-2 border-white/20 text-white font-bold text-sm tracking-wider hover:bg-white/5 transition-all"
-                  >
-                    GITHUB
-                  </a>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 border border-gray-800 bg-black/50">
-                  <div className="text-4xl font-bold text-white mb-2">6</div>
-                  <div className="text-xs text-gray-500 tracking-wider">核心模块</div>
-                </div>
-                <div className="p-6 border border-gray-800 bg-black/50">
-                  <div className="text-4xl font-bold text-white mb-2">AI</div>
-                  <div className="text-xs text-gray-500 tracking-wider">智能驱动</div>
-                </div>
-                <div className="p-6 border border-gray-800 bg-black/50">
-                  <div className="text-4xl font-bold text-white mb-2">100%</div>
-                  <div className="text-xs text-gray-500 tracking-wider">开源免费</div>
-                </div>
-                <div className="p-6 border border-gray-800 bg-black/50">
-                  <div className="text-4xl font-bold text-white mb-2">24/7</div>
-                  <div className="text-xs text-gray-500 tracking-wider">实时同步</div>
-                </div>
+                <h1 className="text-xl font-semibold text-gray-900">Mission Control</h1>
+                <p className="text-sm text-gray-500">任务控制中心</p>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Features Grid */}
-        <section className="border-b border-gray-800">
-          <div className="max-w-7xl mx-auto px-6 py-20">
-            <div className="mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">核心系统</h2>
-              <p className="text-gray-500 text-sm tracking-wider">CORE SYSTEMS</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature, index) => (
+            <nav className="hidden md:flex items-center gap-1">
+              {tabs.map((tab) => (
                 <a
-                  key={feature.id}
-                  href={`/${feature.id}`}
-                  className="group relative"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  key={tab.id}
+                  href={tab.href}
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all"
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
-                       style={{ backgroundColor: feature.color }}></div>
-
-                  <div className="relative border-2 border-gray-800 bg-black/80 p-8 hover:border-opacity-50 transition-all duration-300 group-hover:border-opacity-100"
-                       style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="text-5xl">{feature.icon}</div>
-                      <div className="text-xs text-gray-600 tracking-wider">0{index + 1}</div>
-                    </div>
-
-                    <div className="mb-3">
-                      <div className="text-xs font-medium mb-1" style={{ color: feature.color }}>
-                        {feature.subtitle}
-                      </div>
-                      <h3 className="text-2xl font-bold text-white tracking-tight">
-                        {feature.title}
-                      </h3>
-                    </div>
-
-                    <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                      {feature.description}
-                    </p>
-
-                    <div className="flex items-center text-gray-400 group-hover:text-white transition-colors">
-                      <span className="text-xs font-medium tracking-wider">访问系统</span>
-                      <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
-                    </div>
-                  </div>
+                  {tab.icon} {tab.label}
                 </a>
               ))}
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-8">
+            <span className="text-sm font-medium text-gray-700">AI 团队管理平台</span>
+          </div>
+
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            统一管理
+            <br />
+            <span className="text-gray-400">AI 代理团队</span>
+          </h1>
+
+          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            集成日历、知识库、团队、办公室、内容管道和数据分析六大核心功能
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/calendar"
+              className="px-8 py-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all"
+            >
+              开始使用
+            </a>
+            <a
+              href="https://github.com/Joshualover/mission-control"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 border-2 border-gray-200 text-gray-700 rounded-lg font-semibold hover:border-gray-300 hover:bg-gray-50 transition-all"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">核心功能</h2>
+            <p className="text-lg text-gray-600">六大系统一站式管理</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature) => (
+              <a
+                key={feature.id}
+                href={`/${feature.id}`}
+                className="group"
+              >
+                <div className="bg-white rounded-xl p-8 border-2 border-gray-200 hover:border-gray-300 transition-all h-full">
+                  <div className={`w-16 h-16 ${feature.bg} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                    <span className="text-3xl">{feature.emoji}</span>
+                  </div>
+
+                  <h3 className={`text-xl font-bold ${feature.color} mb-2`}>
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-gray-600 mb-4 font-medium">
+                    {feature.description}
+                  </p>
+
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    {feature.detail}
+                  </p>
+
+                  <div className={`mt-6 pt-6 border-t ${feature.border} flex items-center text-gray-400 group-hover:text-gray-600 transition-colors`}>
+                    <span className="text-sm font-medium">了解更多</span>
+                    <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-900 mb-2">6</div>
+              <div className="text-gray-600">核心模块</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-900 mb-2">AI</div>
+              <div className="text-gray-600">智能驱动</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-900 mb-2">100%</div>
+              <div className="text-gray-600">开源免费</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-gray-900 mb-2">24/7</div>
+              <div className="text-gray-600">实时同步</div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Footer */}
-        <footer className="border-t border-gray-800">
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-gray-500 text-sm">
-                <p className="mb-1">Built with Next.js 16 + Tailwind CSS</p>
-                <p className="text-xs tracking-wider">© 2024 MISSION CONTROL</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#00ff9d', boxShadow: '0 0 10px rgba(0,255,157,0.5)' }}></div>
-                <span className="text-xs text-gray-500 tracking-wider">SYSTEM OPERATIONAL</span>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
-
-      <style jsx>{`
-        @keyframes scanline {
-          0%, 100% { transform: translateY(-100%); }
-          50% { transform: translateY(100%); }
-        }
-      `}</style>
+      {/* Footer */}
+      <footer className="border-t border-gray-200 py-12 px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-gray-600 mb-2">Built with Next.js 16 + Tailwind CSS</p>
+          <p className="text-sm text-gray-500">© 2024 Mission Control. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
